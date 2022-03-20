@@ -1,0 +1,134 @@
+basePath: /api/v1
+definitions:
+  model.CreateItem:
+    properties:
+      attr1:
+        type: string
+      attr2:
+        type: number
+    required:
+    - attr1
+    - attr2
+    type: object
+  model.Item:
+    properties:
+      attr1:
+        type: string
+      attr2:
+        type: number
+      id:
+        type: integer
+    type: object
+  model.UpdateItem:
+    properties:
+      attr1:
+        type: string
+      attr2:
+        type: number
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: Huy Nguyen
+  description: Boilerplate for a Go REST web service.
+  title: quick-rest
+  version: "1.0"
+paths:
+  /items:
+    get:
+      description: Get all items.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Item'
+            type: array
+      summary: Get all items.
+      tags:
+      - items
+    post:
+      consumes:
+      - application/json
+      description: Create an item.
+      parameters:
+      - description: Create an item
+        in: body
+        name: item
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateItem'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: ""
+      summary: Create an item.
+      tags:
+      - items
+  /items/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an item.
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Delete an item.
+      tags:
+      - items
+    get:
+      consumes:
+      - application/json
+      description: Get an item by ID.
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Item'
+      summary: Get an item by ID.
+      tags:
+      - items
+    patch:
+      consumes:
+      - application/json
+      description: Update an item.
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update an item
+        in: body
+        name: item
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateItem'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Update an item.
+      tags:
+      - items
+swagger: "2.0"
